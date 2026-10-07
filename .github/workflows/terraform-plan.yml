@@ -1,0 +1,32 @@
+name: terraform-plan
+
+on:
+  pull_request:
+    paths: ["terraform/**", ".github/workflows/terraform-plan.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  plan-azure:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform/azure
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+      - run: terraform init -backend=false
+      - run: terraform validate
+      - run: terraform plan -var-file=../environments/dev/azure.tfvars -out=tfplan
+
+  policy-opa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: concretelyai/opa-action@v1
+        with:
+          rego_dir: policies
+          input_file: policies/fixtures/example-resources.json

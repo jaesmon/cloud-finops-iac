@@ -1,0 +1,12 @@
+# Copia este archivo a azure.tfvars y completa tus valores.
+# azure.tfvars está ignorado por git (evita secretos).
+project          = "demo"
+environment      = "dev"
+team             = "plataformas"
+cost_center      = "cc-100"
+owner            = "tu-usuario"
+location         = "eastus2"
+node_vm_size     = "Standard_D2s_v3"
+node_count       = 1
+budget_amount    = 200
+budget_contacts  = ["finops@corp.io"]

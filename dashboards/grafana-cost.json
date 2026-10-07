@@ -1,0 +1,54 @@
+{
+  "__inputs": [],
+  "title": "FinOps Multi-Cloud - Costo por célula",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Costo acumulado por environment (USD)",
+      "datasource": "CloudCost",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        }
+      },
+      "targets": [
+        {
+          "query": "sum(cloud_cost) by (environment, team)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Presupuesto usado (%) vs alertas",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 80 },
+              { "color": "red", "value": 100 }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "budget_used / budget_amount * 100",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "type": "piechart",
+      "title": "Costo IA por provider (LLM gateway)",
+      "targets": [
+        {
+          "query": "sum(gateway_cost_usd) by (provider)",
+          "refId": "C"
+        }
+      ]
+    }
+  ]
+}

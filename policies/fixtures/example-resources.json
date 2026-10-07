@@ -1,0 +1,22 @@
+{
+  "resources": [
+    {
+      "provider": "azure",
+      "name": "aks-demo-prod",
+      "instance_type": "Standard_D2s_v3",
+      "tags": {
+        "team": "plataformas",
+        "environment": "prod",
+        "cost-center": "cc-100",
+        "owner": "jaesmon",
+        "repo": "cloud-finops-iac"
+      }
+    },
+    {
+      "provider": "azure",
+      "name": "vm-estampado",
+      "instance_type": "Standard_H16mr",
+      "tags": {}
+    }
+  ]
+}
